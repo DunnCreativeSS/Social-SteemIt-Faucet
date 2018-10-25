@@ -224,6 +224,14 @@ function doAThing(author, permlink){
 				
 				toSendSbd = ((toSendSbd).toString().substring(0, 5));
 				toSendBalance = ((toSendBalance).toString().substring(0, 5));
+				console.log('len: ' + toSendSbd.length);
+				if (toSendSbd.length == 4){
+					toSendSbd += "0";
+				}
+				if (toSendBalance.length == 4){
+					toSendBalance += "0";
+				}
+				
 				console.log(toSendSbd);
 				console.log(toSendBalance);
 				if (validAuthors.includes(replies[a].author)){
