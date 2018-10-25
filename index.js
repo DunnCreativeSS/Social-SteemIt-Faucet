@@ -170,7 +170,6 @@ function dodatthang(){
 				//console.log(sbd);
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
-		console.log('hodlorbust');	
 		}
 		doDatabase(discussions[i]);
 	
