@@ -12,12 +12,15 @@ app.listen(process.env.PORT || 8080, function() {});
 
 
 app.get('/', function(req, res) {
-	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD: ' + sbd.toString() + '<br>STEEM: ' + balance.toString() ' + </body></html>');
+	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD: ' + sbd.toString() + '<br>STEEM: ' + balance.toString() + ' </body></html>');
 });
 
 var vesting_shares, sbd, balance, delegated_vesting_shares, received_vesting_shares, total_vesting_shares , total_vesting_fund_steem=null;
 setInterval(function(){
-steem.api.getAccounts(["hodlorbust"], function(err, response){  
+balances();
+}, 5000);
+function balances(){
+	steem.api.getAccounts(["hodlorbust"], function(err, response){  
 	sbd =response["0"].sbd_balance;
 	balance = response["0"].balance;
 	
@@ -26,7 +29,8 @@ steem.api.getAccounts(["hodlorbust"], function(err, response){
 				sbd = parseFloat(sbd.substring(0, sbd.length - 4));
 	
 });
-}, 5000);
+}
+balances();
 var discussions = []
 var perms = []
 var repsids = []
