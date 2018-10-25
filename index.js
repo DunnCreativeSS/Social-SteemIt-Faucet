@@ -8,7 +8,7 @@ app.listen(process.env.PORT || 8080, function() {});
 
 
 app.get('/', function(req, res) {
-	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD: ' + sbd.toString()'<br>STEEM: ' + balance.toString() ' + </body></html>');
+	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD: ' + sbd.toString() + '<br>STEEM: ' + balance.toString() ' + </body></html>');
 });
 
 var vesting_shares, sbd, balance, delegated_vesting_shares, received_vesting_shares, total_vesting_shares , total_vesting_fund_steem=null;
