@@ -146,6 +146,27 @@ function doAThing(author, permlink){
 				if (validAuthors.includes(replies[a].author)){
 				if (!authors.includes(replies[a].author)){
 						authors.push(replies[a].author);
+						var apermlink = Math.random()
+							.toString(36)
+							.substring(2);
+						var acomment = {
+							author: 'hodlorbust',
+							title: '',
+							body: 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!',
+							parent_author: replies[a].author,
+							parent_permlink: permlink,
+							permlink: apermlink,
+							json_metadata: '',
+						};
+						steem.broadcast.comment(acomment, '5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg').then(
+							function(result) {
+								console.log('comment broadcast result', result);
+							},
+							function(error) {
+								console.error(error);
+							}
+						);
+
 						if (parseFloat(toSendSbd) != 0){
 							sbdPaid+=parseFloat(toSendSbd);
 				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendSbd + ' SBD', 'Faucet payout!', function(err, result) {
