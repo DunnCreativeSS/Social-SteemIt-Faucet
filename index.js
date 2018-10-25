@@ -90,6 +90,7 @@ function dodatthang(){
 	
 				console.log(balance);
 				console.log(sbd);
+				validAuthors = []
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
 		console.log('hodlorbust');	
@@ -124,7 +125,6 @@ function doAThing(author, permlink){
 				  timestamps.push(replies[a].created);
 				  authors = []
 				var reqs = 0;
-				validAuthors = []
 				for (var a in timestamps){
 					if (!authorsInTs.includes(replies[a].author)){
 						authorsInTs.push(replies[a].author);
