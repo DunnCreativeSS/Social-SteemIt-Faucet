@@ -106,6 +106,7 @@ dodatthang();
 var authorsa = []
 var validAuthors = []
 var authorsInTs = [];
+var reqs = 100
 function doAThing(author, permlink){
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
@@ -119,25 +120,21 @@ function doAThing(author, permlink){
 				  
 			var reps = replies[a].body.toString().toLowerCase();
 			if (reps.length != 0){
-				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1){ //receive a payout from the @hodlorbust faucet
+				if (reps.indexOf('e') != -1){ //receive a payout from the @hodlorbust faucet
 				  authorsa.push(replies[a].author);
 				  timestamps.push(replies[a].created);
 				  authors = []
-				var reqs = 0;
-				for (var a in timestamps){
-					if (!authorsInTs.includes(replies[a].author)){
-						authorsInTs.push(replies[a].author);
-						if ((new Date) - new Date(timestamps[a]) > ONE_DAY){
-						validAuthors = validAuthors.splice(authorsa[a]);
+				for (var aa in timestamps){
+						if (new Date(timestamps[aa])- (new Date) > ONE_DAY){
+							reqs--;
+						validAuthors = validAuthors.splice(authorsa[aa]);
 						}	
-					if ((new Date) - new Date(timestamps[a]) < ONE_DAY && !validAuthors.includes(authorsa[a])){
+					if ( new Date(timestamps[aa]) - (new Date)  < ONE_DAY && !validAuthors.includes(authorsa[aa])){
 						reqs++;
-						validAuthors.push(authorsa[a]);
+						validAuthors.push(authorsa[aa]);
 					}
 
-					}
 				}
-				reqs += 100;
 				console.log(reqs);
 				var toSendSbd = (sbd / reqs);
 				var toSendBalance = (balance / reqs);
@@ -147,7 +144,7 @@ function doAThing(author, permlink){
 				console.log(toSendSbd);
 				console.log(toSendBalance);
 				if (validAuthors.includes(replies[a].author)){
-				if (!authors.includes(replies[a].author)){
+				if (!authors.includes(replies[a].author) && replies[a].author!='minutely-pays'){
 						authors.push(replies[a].author);
 						var apermlink = Math.random()
 							.toString(36)
@@ -170,6 +167,7 @@ function doAThing(author, permlink){
 					}); 
 												}
 				}
+				
 				}
 				}
 			}
