@@ -150,7 +150,7 @@ function doAThing(author, permlink){
 							.toString(36)
 							.substring(2);
 		
-						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', 'steem', '', 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!', '', function(err, result) {
+						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!', '', function(err, result) {
 						  console.log(err, result);
 						});
 
