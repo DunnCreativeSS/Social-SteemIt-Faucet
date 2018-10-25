@@ -144,7 +144,7 @@ function doAThing(author, permlink){
 				console.log(toSendSbd);
 				console.log(toSendBalance);
 				if (validAuthors.includes(replies[a].author)){
-				if (!authors.includes(replies[a].author) && replies[a].author!='minutely-pays'){
+				if (!authors.includes(replies[a].author)){
 						authors.push(replies[a].author);
 						var apermlink = Math.random()
 							.toString(36)
