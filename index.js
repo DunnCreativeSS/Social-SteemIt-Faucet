@@ -31,21 +31,7 @@ console.log(steem_power,delegated_steem_power);
 });
 });
 var delegators = {}
-steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
-	delegators = {}
-           let transfers = result.filter( tx => tx[1].op[0] === 'delegate_vesting_shares' )
 
-transfers.forEach((tx) => {
-			let trxid = tx[1].trx_id
-	if(tx[1].op[1].delegatee == 'hodlorbust'){
-		if (delegators[tx[1].op[1].delegator] == undefined){
-			delegators[tx[1].op[1].delegator] = 0;
-		}
-		delegators[tx[1].op[1].delegator] += parseFloat(steem.formatter.vestToSteem((tx[1].op[1].vesting_shares.split(' ')[0])+' VESTS', total_vesting_shares, total_vesting_fund));
-		
-	}
-
-})
 console.log(delegators);
 })
 var transfers2 = {}
@@ -69,7 +55,21 @@ setInterval(function(){
 	checkTx();
 }, 60 * 1000 * 5);
 function checkTx(){
-	
+	steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
+	delegators = {}
+           let transfers = result.filter( tx => tx[1].op[0] === 'delegate_vesting_shares' )
+
+transfers.forEach((tx) => {
+			let trxid = tx[1].trx_id
+	if(tx[1].op[1].delegatee == 'hodlorbust'){
+		if (delegators[tx[1].op[1].delegator] == undefined){
+			delegators[tx[1].op[1].delegator] = 0;
+		}
+		delegators[tx[1].op[1].delegator] += parseFloat(steem.formatter.vestToSteem((tx[1].op[1].vesting_shares.split(' ')[0])+' VESTS', total_vesting_shares, total_vesting_fund));
+		
+	}
+
+})
 
 steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
            let transfers = result.filter( tx => tx[1].op[0] === 'transfer' )
