@@ -10,9 +10,10 @@ setInterval(function() {
 
 app.listen(process.env.PORT || 8080, function() {});
 
-
+var sbdPaid = 0;
+var steemPaid = 0;
 app.get('/', function(req, res) {
-	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD: ' + sbd.toString() + '<br>STEEM: ' + balance.toString() + ' </body></html>');
+	res.send('<head>  <meta http-equiv="refresh" content="600"></head><body>SBD Balance: ' + sbd.toString() + '<br>STEEM Balance: ' + balance.toString() + '<br><br>SBD Paid: ' + sbdPaid.toString() + '<br>STEEM Paid: ' + steemPaid.toString() + ' </body></html>');
 });
 
 var vesting_shares, sbd, balance, delegated_vesting_shares, received_vesting_shares, total_vesting_shares , total_vesting_fund_steem=null;
@@ -117,12 +118,13 @@ function doAThing(author, permlink){
 				if (!authors.includes(replies[a].author)){
 						authors.push(replies[a].author);
 						if (parseFloat(toSendSbd) != 0){
+							sbdPaid+=parseFloat(toSendSbd);
 				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendSbd + ' SBD', 'Faucet payout!', function(err, result) {
 					  console.log(err, result);
 					});
 						}
 												if (parseFloat(toSendBalance) != 0){
-
+						steemPaid += parseFloat(toSendBalance);
 				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendBalance + ' STEEM', 'Faucet payout!', function(err, result) {
 					  console.log(err, result);
 					}); 
