@@ -138,7 +138,7 @@ setInterval(function(){
 	
 dodatthang();
 	
-}, 15 * 1000);
+}, 15 * 4 * 1000);
 
 
 
@@ -170,7 +170,7 @@ function dodatthang(){
 				//console.log(sbd);
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
-		//console.log('hodlorbust');	
+		console.log('hodlorbust');	
 		}
 		doDatabase(discussions[i]);
 	
@@ -213,35 +213,12 @@ var authorsa = []
 var validAuthors = []
 var authorsInTs = [];
 var reqs = 100
-var MongoClient = require('mongodb').MongoClient;
-MongoClient.connect("mongodb+srv://jare:w0rdp4ss@cluster0-kuely.mongodb.net/test?retryWrites=true" || mongodb, function(err, db) {
-    dbo = db.db('stuff')
-
-
-});
-var perms = []
-function doAThing(){
-		var collection = dbo.collection("discussions3");
-
-					collection.find({
-
-				}, ).sort({
-					_id: -1
-
-				}).toArray(function(err, doc3) {
-					if (doc3 != undefined){
-					if (doc3.length != 0){
-						for (var i in doc3){
-						
-							var author = doc3[i].discussionauthor;
-							var permlink = doc3[i].discussionpermlink;
-							
+function doGetReps(author, permlink){
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
 		steem.api.getContentRepliesAsync(author, permlink)
 		  .then(function(replies) {
-			  if (author == 'hodlorbust'){
-			  }
+			
 
 			  for (var a in replies){
 			  if (!repsids.includes(replies[a].id)){
@@ -347,6 +324,31 @@ function doAThing(){
 			  }
 		  });
 	  });
+}
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect("mongodb+srv://jare:w0rdp4ss@cluster0-kuely.mongodb.net/test?retryWrites=true" || mongodb, function(err, db) {
+    dbo = db.db('stuff')
+
+
+});
+var perms = []
+function doAThing(){
+		var collection = dbo.collection("discussions3");
+
+					collection.find({
+
+				}, ).sort({
+					_id: -1
+
+				}).toArray(function(err, doc3) {
+					if (doc3 != undefined){
+					if (doc3.length != 0){
+						for (var i in doc3){
+						
+							var author = doc3[i].discussionauthor;
+							var permlink = doc3[i].discussionpermlink;
+							doGetReps(author, permlink);
+	
 						}
 					}
 					}
