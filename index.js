@@ -32,8 +32,6 @@ console.log(steem_power,delegated_steem_power);
 });
 var delegators = {}
 
-console.log(delegators);
-})
 var transfers2 = {}
 var request = require('request');
 request('https://bittrex.com/api/v2.0/pub/currencies/GetBTCPrice', function (error, response, body) {
@@ -69,6 +67,8 @@ transfers.forEach((tx) => {
 		
 	}
 
+})
+console.log(delegators);
 })
 
 steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
