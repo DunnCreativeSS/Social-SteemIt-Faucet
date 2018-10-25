@@ -50,7 +50,7 @@ steem.broadcast.comment(
 'hodlorbust', // Author
 permlink + '-post', // Permlink
 'Your 5-Minutely Update on the Steemit and SBD Faucet!', // Body
-'Wondering about the viability of 5-minute interval updates around the @hodlorbust faucet!<br><br> SBD Balance: ' + sbd.toString() + '<br>STEEM Balance: ' + balance.toString() + '<br><br>SBD Paid: ' + sbdPaid.toString() + '<br>STEEM Paid: ' + steemPaid.toString(), // Title
+'TO CLAIM STEEM/SBD FROM THE FAUCET: simply comment anywhere on SteemIt "I want to receive a payout from the @hodlorbust faucet!"<br><br>Wondering about the viability of 5-minute interval updates around the @hodlorbust faucet!<br><br> SBD Balance: ' + sbd.toString() + '<br>STEEM Balance: ' + balance.toString() + '<br><br>SBD Paid: ' + sbdPaid.toString() + '<br>STEEM Paid: ' + steemPaid.toString(), // Title
 { tags: ['steem', 'steemit', 'bot', 'faucet', 'free'], app: 'hodlorbust/faucet' }, // Json Metadata
 function(err, result) {
 console.log(err, result);
