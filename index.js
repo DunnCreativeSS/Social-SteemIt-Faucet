@@ -77,14 +77,14 @@ function dodatthang(){
 	});
 }
 dodatthang();
-
+var authorsa = []
+var validAuthors = []
 function doAThing(author, permlink){
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
 		steem.api.getContentRepliesAsync(author, permlink)
 		  .then(function(replies) {
 			  if (author == 'hodlorbust'){
-			  console.log(replies);
 			  }
 			  for (var a in replies){
 			  if (!repsids.includes(replies[a].id)){
@@ -93,13 +93,15 @@ function doAThing(author, permlink){
 			var reps = replies[a].body.toString().toLowerCase();
 			if (reps.length != 0){
 				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1){ //receive a payout from the @hodlorbust faucet
-					
+				  authorsa.push(replies[a].author);
 				  timestamps.push(replies[a].created);
 				  authors = []
 				var reqs = 0;
+				validAuthors = []
 				for (var a in timestamps){
 					if ((new Date) - new Date(timestamps[a]) < ONE_DAY){
 						reqs++;
+						validAuthors.push(authorsa[a]);
 					}					
 				}
 				reqs += 100;
@@ -111,6 +113,7 @@ function doAThing(author, permlink){
 				toSendBalance = ((toSendBalance).toString().substring(0, 5));
 				console.log(toSendSbd);
 				console.log(toSendBalance);
+				if (validAuthors.includes(replies[a].author)){
 				if (!authors.includes(replies[a].author)){
 						authors.push(replies[a].author);
 						if (parseFloat(toSendSbd) != 0){
@@ -124,6 +127,7 @@ function doAThing(author, permlink){
 					  console.log(err, result);
 					}); 
 												}
+				}
 				}
 				}
 			}
