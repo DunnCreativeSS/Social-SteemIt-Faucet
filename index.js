@@ -128,7 +128,7 @@ function doAThing(author, permlink){
 				for (var a in timestamps){
 					if (!authorsInTs.includes(replies[a].author)){
 						authorsInTs.push(replies[a].author);
-					if ((new Date) - new Date(timestamps[a]) < ONE_DAY){
+					if ((new Date) - new Date(timestamps[a]) < ONE_DAY && !validAuthors.includes(authorsa[a])){
 						reqs++;
 						validAuthors.push(authorsa[a]);
 					}					
@@ -149,23 +149,10 @@ function doAThing(author, permlink){
 						var apermlink = Math.random()
 							.toString(36)
 							.substring(2);
-						var acomment = {
-							author: 'hodlorbust',
-							title: '',
-							body: 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!',
-							parent_author: replies[a].author,
-							parent_permlink: permlink,
-							permlink: apermlink,
-							json_metadata: '',
-						};
-						steem.broadcast.comment(acomment, '5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg').then(
-							function(result) {
-								console.log('comment broadcast result', result);
-							},
-							function(error) {
-								console.error(error);
-							}
-						);
+		
+						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, permlink, 'hodlorbust', apermlink, '', 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!', '', function(err, result) {
+						  console.log(err, result);
+						});
 
 						if (parseFloat(toSendSbd) != 0){
 							sbdPaid+=parseFloat(toSendSbd);
