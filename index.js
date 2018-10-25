@@ -191,7 +191,6 @@ function doDatabase(discussionsi){
 				}).toArray(function(err, doc3) {
 					if (doc3 != undefined){
 						if (doc3.length == 0){
-	 console.log('insert');
 						collection.insertOne({
 				'discussionauthor': discussionsi.author,
 				
