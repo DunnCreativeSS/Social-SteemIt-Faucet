@@ -40,6 +40,31 @@ setInterval(function(){
 dodatthang();
 	
 }, 15 * 1000);
+
+function doPost(){
+var permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+steem.broadcast.comment(
+'5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg',
+'', // Leave parent author empty
+'steem', // Main tag
+'hodlorbust', // Author
+permlink + '-post', // Permlink
+'Your 5-Minutely Update on the Steemit and SBD Faucet!', // Body
+'Wondering about the viability of 5-minute interval updates around the @hodlorbust faucet!<br><br> SBD Balance: ' + sbd.toString() + '<br>STEEM Balance: ' + balance.toString() + '<br><br>SBD Paid: ' + sbdPaid.toString() + '<br>STEEM Paid: ' + steemPaid.toString(), // Title
+{ tags: ['steem', 'steemit', 'bot', 'faucet', 'free'], app: 'hodlorbust/faucet' }, // Json Metadata
+function(err, result) {
+console.log(err, result);
+}
+);
+}
+setTimeout(function(){
+	doPost();
+	setInterval(function(){
+	doPost();
+}, 5.05 * 60 * 1000);
+}, 60 * 1000);
+
+
 var ONE_DAY = 24* 60 * 60 * 1000; /* ms */
 var wif = "5Jj8pyzebYBPe3rtD71f8fE44HLPgZ4oVNX8iwNKbGxSzwpdax6";
 var timestamps = []
