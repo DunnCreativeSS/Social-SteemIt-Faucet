@@ -90,7 +90,6 @@ function dodatthang(){
 	
 				console.log(balance);
 				console.log(sbd);
-				validAuthors = []
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
 		console.log('hodlorbust');	
@@ -128,10 +127,14 @@ function doAThing(author, permlink){
 				for (var a in timestamps){
 					if (!authorsInTs.includes(replies[a].author)){
 						authorsInTs.push(replies[a].author);
+						if ((new Date) - new Date(timestamps[a]) > ONE_DAY){
+						validAuthors = validAuthors.splice(authorsa[a]);
+						}	
 					if ((new Date) - new Date(timestamps[a]) < ONE_DAY && !validAuthors.includes(authorsa[a])){
 						reqs++;
 						validAuthors.push(authorsa[a]);
-					}					
+					}
+
 					}
 				}
 				reqs += 100;
