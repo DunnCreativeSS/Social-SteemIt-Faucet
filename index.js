@@ -43,7 +43,7 @@ dodatthang();
 
 
 
-
+var sleep = require('system-sleep');
 var ONE_DAY = 24* 60 * 60 * 1000; /* ms */
 var wif = "5Jj8pyzebYBPe3rtD71f8fE44HLPgZ4oVNX8iwNKbGxSzwpdax6";
 var timestamps = []
@@ -130,7 +130,7 @@ function doAThing(author, permlink){
 						var apermlink = Math.random()
 							.toString(36)
 							.substring(2);
-		
+						sleep(3040);
 						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', 'Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot!', '', function(err, result) {
 						  console.log(err, result);
 						});
