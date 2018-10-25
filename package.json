@@ -16,7 +16,7 @@
     "hitbtc-node-js": "0.0.1",
     "http": "*",
     "https": "^1.0.0",
-    "mongodb": "*",
+    "mongodb": "^3.1.8",
     "node-binance-api": "^0.8.0",
     "path": "*",
     "poloniex-api-node": "^1.9.0",

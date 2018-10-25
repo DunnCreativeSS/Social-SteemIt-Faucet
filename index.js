@@ -27,7 +27,7 @@ steem.api.getDynamicGlobalProperties(function(err, result) {
 // Handle Promises, when you’re sure the two functions were completed simply do:
 var steem_power= steem.formatter.vestToSteem(vesting_shares, total_vesting_shares, total_vesting_fund);
 var delegated_steem_power= steem.formatter.vestToSteem((received_vesting_shares.split(' ')[0]-delegated_vesting_shares.split(' ')[0])+' VESTS', total_vesting_shares, total_vesting_fund);
-console.log(steem_power,delegated_steem_power);
+//console.log(steem_power,delegated_steem_power);
 });
 });
 var delegators = {}
@@ -68,7 +68,7 @@ transfers.forEach((tx) => {
 	}
 
 })
-console.log(delegators);
+//console.log(delegators);
 })
 
 steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
@@ -80,7 +80,7 @@ transfers.forEach((tx) => {
 		if (transfers2[tx[1].op[1].from] == undefined){
 			transfers2[tx[1].op[1].from] = {'sbd': 0, 'steem': 0, 'usd': 0};
 		}
-		console.log(tx[1].op[1].memo);
+		//console.log(tx[1].op[1].memo);
 		if (tx[1].op[1].amount.slice(-3) == 'SBD'){
 		transfers2[tx[1].op[1].from].sbd += parseFloat(tx[1].op[1].amount.substring(0, tx[1].op[1].amount.length-4));
 		transfers2[tx[1].op[1].from].usd += parseFloat(tx[1].op[1].amount.substring(0, tx[1].op[1].amount.length-4)) * sbdusd;
@@ -96,7 +96,7 @@ transfers.forEach((tx) => {
 
 
 })		
-console.log(transfers2);
+//console.log(transfers2);
 })
 }
 setTimeout(function(){
@@ -148,7 +148,7 @@ var wif = "5Jj8pyzebYBPe3rtD71f8fE44HLPgZ4oVNX8iwNKbGxSzwpdax6";
 var timestamps = []
 var authors = []
 function dodatthang(){
-	
+	discussions = [];
 	var oldestPermLink = ""
 	steem.api.getDiscussionsByCreated({ "limit": 100}, function(err, result) { //getDiscussionsByCreated
 		if (err === null) {
@@ -162,23 +162,49 @@ function dodatthang(){
 
 			}
 		} else {
-			console.log(err);
+			//console.log(err);
 		}
-	console.log(discussions.length);
+	//console.log(discussions.length);
 	
-				console.log(balance);
-				console.log(sbd);
+				//console.log(balance);
+				//console.log(sbd);
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
-		console.log('hodlorbust');	
+		//console.log('hodlorbust');	
 		}
-		var author = discussions[i].author;
-		var permlink = discussions[i].permlink;
-		
-		doAThing(author, permlink);
+		doDatabase(discussions[i]);
+	
 	
 	}
+	setTimeout(function(){
+		doAThing();
+	}, 4000);
 	});
+}
+function doDatabase(discussionsi){
+	var collection = dbo.collection("discussions3");
+					collection.find({
+						 discussionpermlink: discussionsi.permlink 
+				}, ).sort({
+					_id: -1
+
+				}).toArray(function(err, doc3) {
+					if (doc3 != undefined){
+						if (doc3.length == 0){
+	 console.log('insert');
+						collection.insertOne({
+				'discussionauthor': discussionsi.author,
+				
+				'discussionpermlink': discussionsi.permlink
+			}, function(err, res) {
+				if (err) {}
+				
+
+			});
+					}
+					}
+				});
+				
 }
 setTimeout(function(){
 dodatthang();
@@ -187,8 +213,29 @@ var authorsa = []
 var validAuthors = []
 var authorsInTs = [];
 var reqs = 100
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect("mongodb+srv://jare:w0rdp4ss@cluster0-kuely.mongodb.net/test?retryWrites=true" || mongodb, function(err, db) {
+    dbo = db.db('stuff')
+
+
+});
 var perms = []
-function doAThing(author, permlink){
+function doAThing(){
+		var collection = dbo.collection("discussions3");
+
+					collection.find({
+
+				}, ).sort({
+					_id: -1
+
+				}).toArray(function(err, doc3) {
+					if (doc3 != undefined){
+					if (doc3.length != 0){
+						for (var i in doc3){
+						
+							var author = doc3[i].discussionauthor;
+							var permlink = doc3[i].discussionpermlink;
+							
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
 		steem.api.getContentRepliesAsync(author, permlink)
@@ -263,7 +310,7 @@ function doAThing(author, permlink){
 				for (var party in delegators){
 					spTot += delegators[party];
 				}
-				console.log(spTot);
+				//console.log(spTot);
 				ran = Math.random() * spTot;
 				spTot = 0;
 				done = false;
@@ -273,22 +320,22 @@ function doAThing(author, permlink){
 						done = true;
 						amemo += ' and a shoutout to @' + party + ' for delegating some SP, too!'
 					}
-				}				console.log(amemo);
+				}				//console.log(amemo);
 
 						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
-						  console.log(err, result);
+						//  console.log(err, result);
 						});
 
 						if (parseFloat(toSendSbd) != 0){
 							sbdPaid+=parseFloat(toSendSbd);
 				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendSbd + ' SBD', 'Faucet payout!', function(err, result) {
-					  console.log(err, result);
+					  //console.log(err, result);
 					});
 						}
 												if (parseFloat(toSendBalance) != 0){
 						steemPaid += parseFloat(toSendBalance);
 				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendBalance + ' STEEM', 'Faucet payout!', function(err, result) {
-					  console.log(err, result);
+					  //console.log(err, result);
 					}); 
 												}
 				}
@@ -300,4 +347,8 @@ function doAThing(author, permlink){
 			  }
 		  });
 	  });
+						}
+					}
+					}
+				});
 }
