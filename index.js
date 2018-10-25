@@ -187,6 +187,7 @@ var authorsa = []
 var validAuthors = []
 var authorsInTs = [];
 var reqs = 100
+var perms = []
 function doAThing(author, permlink){
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
@@ -201,8 +202,9 @@ function doAThing(author, permlink){
 				  
 			var reps = replies[a].body.toString().toLowerCase();
 			if (reps.length != 0){
-				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1){ //receive a payout from the @hodlorbust faucet
-				  authorsa.push(replies[a].author);
+				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1 && !perms.includes(replies[a].permlink)){ //receive a payout from the @hodlorbust faucet
+				 perms.push(replies[a].permlink);
+				 authorsa.push(replies[a].author);
 				  timestamps.push(replies[a].created);
 				  
 				for (var aa in timestamps){
