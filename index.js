@@ -65,9 +65,14 @@ function dodatthang(){
 		} else {
 			console.log(err);
 		}
+	console.log(discussions.length);
 	
+				console.log(balance);
+				console.log(sbd);
 	for (var i in discussions){
-
+		if (discussions[i].author == 'hodlorbust'){
+		console.log('hodlorbust');	
+		}
 		var author = discussions[i].author;
 		var permlink = discussions[i].permlink;
 		
@@ -97,16 +102,16 @@ function doAThing(author, permlink){
 				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1){ //receive a payout from the @hodlorbust faucet
 				  authorsa.push(replies[a].author);
 				  timestamps.push(replies[a].created);
-				  authors = []
+				  
 				for (var aa in timestamps){
 						if (new Date(timestamps[aa])- (new Date) > ONE_DAY){
 							reqs--;
 							console.log('reqs--');
 						validAuthors = validAuthors.splice(authorsa[aa]);
+						authors = authors.splice(authorsa[aa]);
 						}	
 					if ( new Date(timestamps[aa]) - (new Date)  < ONE_DAY && !validAuthors.includes(authorsa[aa])){
 						reqs++;
-							console.log('reqs++');
 						validAuthors.push(authorsa[aa]);
 					}
 
