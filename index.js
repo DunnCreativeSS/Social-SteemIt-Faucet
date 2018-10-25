@@ -105,6 +105,7 @@ function dodatthang(){
 dodatthang();
 var authorsa = []
 var validAuthors = []
+var authorsInTs = [];
 function doAThing(author, permlink){
 	steem.api.getContentAsync(author, permlink)
 	  .then(function(post) {
@@ -125,10 +126,13 @@ function doAThing(author, permlink){
 				var reqs = 0;
 				validAuthors = []
 				for (var a in timestamps){
+					if (!authorsInTs.includes(replies[a].author)){
+						authorsInTs.push(replies[a].author);
 					if ((new Date) - new Date(timestamps[a]) < ONE_DAY){
 						reqs++;
 						validAuthors.push(authorsa[a]);
 					}					
+					}
 				}
 				reqs += 100;
 				console.log(reqs);
