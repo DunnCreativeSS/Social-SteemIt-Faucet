@@ -120,7 +120,7 @@ function doAThing(author, permlink){
 				  
 			var reps = replies[a].body.toString().toLowerCase();
 			if (reps.length != 0){
-				if (reps.indexOf('e') != -1){ //receive a payout from the @hodlorbust faucet
+				if (reps.indexOf('receive a payout from the @hodlorbust faucet') != -1){ //receive a payout from the @hodlorbust faucet
 				  authorsa.push(replies[a].author);
 				  timestamps.push(replies[a].created);
 				  authors = []
