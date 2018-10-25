@@ -3,6 +3,10 @@ var express = require('express');
 
 var app = express()
 
+var http = require("http");
+setInterval(function() {
+    http.get("http://steemit-faucet.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
 
 app.listen(process.env.PORT || 8080, function() {});
 

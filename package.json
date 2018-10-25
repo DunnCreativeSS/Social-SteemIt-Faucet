@@ -22,7 +22,8 @@
     "request": "^2.87.0",
     "sendgrid": "^5.2.3",
     "serve-favicon": "*",
-    "trendyways": "^0.4.2"
+    "trendyways": "^0.4.2",
+	"http": "*"
   },
   "scripts": {
     "start": "node index.js"
