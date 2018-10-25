@@ -244,7 +244,7 @@ function doAThing(author, permlink){
 							.substring(2);
 						sleep(3040)
 									  var amemo = 'https://steemit-faucet.herokuapp.com/ Sending you ' +toSendSbd + ' SBD and ' + toSendBalance + ' STEEM! Woot! '
-				amemo+='Brought to you by: '
+				amemo+='Brought to you by: @'
 				var usdTot = 0;
 				for (var party in transfers2){
 					usdTot += transfers2[party].usd;
@@ -271,7 +271,7 @@ function doAThing(author, permlink){
 					spTot += delegators[party];
 						if (spTot >= ran && done == false){
 						done = true;
-						amemo += ' and a shoutout to ' + party + ' for delegating some SP, too!'
+						amemo += ' and a shoutout to @' + party + ' for delegating some SP, too!'
 					}
 				}				console.log(amemo);
 
