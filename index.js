@@ -311,7 +311,7 @@ function doGetReps(author, permlink){
 	  });
 }
 function domorestuff(rep, amemo, apermlink){
-var collection = dbo.collection("payouts");
+var collection = dbo.collection("payouts2");
 
 					collection.find({
 repliesapermlink: rep.permlink
@@ -328,6 +328,8 @@ repliesapermlink: rep.permlink
 			}, function(err, res) {
 				if (err) {}
 				
+			});
+						
 steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', rep.author, rep.permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
 						//  console.log(err, result);
 						});
@@ -344,8 +346,6 @@ steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', r
 					  //console.log(err, result);
 					}); 
 												}
-			});
-						
 					}
 					}
 				});	
