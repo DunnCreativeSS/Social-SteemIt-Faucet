@@ -299,7 +299,7 @@ function doGetReps(author, permlink){
 				}				//console.log(amemo);
 
 				
-					domorestuff(replies[a], amemo, apermlink);
+					domorestuff(replies[a], amemo, apermlink, toSendBalance, toSendSbd);
 								}
 				}
 				
@@ -310,8 +310,8 @@ function doGetReps(author, permlink){
 		  });
 	  });
 }
-function domorestuff(rep, amemo, apermlink){
-var collection = dbo.collection("payouts2");
+function domorestuff(rep, amemo, apermlink, toSendBalance, toSendSbd){
+var collection = dbo.collection("payouts3");
 
 					collection.find({
 repliesapermlink: rep.permlink
