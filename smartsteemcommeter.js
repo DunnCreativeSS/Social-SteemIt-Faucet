@@ -51,7 +51,7 @@ request('https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-sbd', f
 });
 setInterval(function(){
 	checkTx();
-}, 60 * 1000 * 5);
+}, 60 * 1000 * 1);
 function checkTx(){
 	steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
 	delegators = {}
@@ -70,13 +70,12 @@ transfers.forEach((tx) => {
 })
 //console.log(delegators);
 })
-
-steem.api.getAccountHistory('hodlorbust', -1, 5000, function(err, result) {
+steem.api.getAccountHistory('smartsteem', -1, 5000, function(err, result) {
            let transfers = result.filter( tx => tx[1].op[0] === 'transfer' )
 transfers2 = {}
 transfers.forEach((tx) => {
 			let trxid = tx[1].trx_id
-	if(tx[1].op[1].to == 'hodlorbust'){
+	if(tx[1].op[1].to == 'smartsteem'){
 		if (transfers2[tx[1].op[1].from] == undefined){
 			transfers2[tx[1].op[1].from] = {'sbd': 0, 'steem': 0, 'usd': 0};
 		}
@@ -94,10 +93,69 @@ transfers.forEach((tx) => {
 
 	}
 
-
 })		
+	console.log(transfers2);
+	
+		
 //console.log(transfers2);
 })
+}setTimeout(function(){
+	console.log('lala');
+		doDatLala(transfers2, 0);
+	}, 11050);
+var done = []
+function doDatLala(tranfers2, i){
+	if (i < Object.keys(transfers2).length){
+		var a = 0;
+		for (var t in transfers2){
+			console.log(a);
+			console.log(i);
+			if (a == i){
+	if (!done.includes(transfers2[t].memo && transfers2[t].memo.length > 4 && t != 'smartmarket' && t != 'teamawesome' && t != 'adonisabril' && t != 'birdbanter')){
+		console.log(t);
+		var query = {
+		  tag: t,
+		  limit: 20
+		};
+		setathing(transfers2,t,query);
+		}
+		i++;
+			}
+			a++;
+		}
+	}
+}
+function setathing(transfers2,t,query){
+	var c = 0;
+	for (var a in transfers2){
+		c++;
+	}
+	setTimeout(function(){
+		steemapi(transfers2, t, query);
+		}, Math.random * 3050 * c);
+}
+function steemapi(transfers2, t, query){
+	steem.api.getDiscussionsByBlog(query, function (err, result) {
+		        var i, len = result.length;
+        for (i = 0; i < len; i++) {
+
+		            var discussion = result[i];
+
+				
+				if (transfers2[t].memo.includes(discussion.url)){
+
+						done.push(transfers2[t].memo);
+					var apermlink = Math.random()
+										.toString(36)
+										.substring(2);
+					
+					var amemo = "Hey @" + t + " I noticed you sometimes boost your posts (like this one!) - wanted you to know https://steemit-faucet.herokuapp.com you can advertise your posts, products, services or whathaveyou using the memo field of this SteemIt faucet!";
+					steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', t, discussion.permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
+					  console.log(err, result);
+					});
+				}
+		}
+		});
 }
 setTimeout(function(){
 	
@@ -140,16 +198,7 @@ dodatthang();
 	
 }, 15 * 4 * 1000);
 
-var token = 'df8b7acc-7380-4211-a155-9f7c33ec1938';
-var appName = 'steemit-faucet';
-var dynoName = 'web';
 
-var Heroku = require('heroku-client');
-setInterval(function(){
-var heroku = new Heroku({ token: token });
-    heroku .delete('/apps/' + appName + '/dynos/' + dynoName)
-           .then( x => console.log(x) );
-}, 5 * 60 * 1000);
 
 var sleep = require('system-sleep');
 var ONE_DAY = 24* 60 * 60 * 1000; /* ms */
@@ -339,9 +388,7 @@ repliesapermlink: rep.permlink
 				
 			});
 						
-steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', rep.author, rep.permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
-						//  console.log(err, result);
-						});
+/*
 
 						if (parseFloat(toSendSbd) != 0){
 							sbdPaid+=parseFloat(toSendSbd);
@@ -354,7 +401,7 @@ steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', r
 				steem.broadcast.transfer(wif, 'hodlorbust', rep.author, toSendBalance + ' STEEM', 'Faucet payout!', function(err, result) {
 					  //console.log(err, result);
 					}); 
-												}
+												} */
 					}
 					}
 				});	
