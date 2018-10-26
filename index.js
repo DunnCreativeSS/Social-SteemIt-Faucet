@@ -170,6 +170,7 @@ function dodatthang(){
 				//console.log(sbd);
 	for (var i in discussions){
 		if (discussions[i].author == 'hodlorbust'){
+		console.log('hodlorbust');	
 		}
 		doDatabase(discussions[i]);
 	
@@ -297,7 +298,24 @@ function doGetReps(author, permlink){
 					}
 				}				//console.log(amemo);
 
-						steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
+				
+					var collection = dbo.collection("payouts");
+
+					collection.find({
+repliesapermlink: replies[a].permlink
+				}, ).sort({
+					_id: -1
+
+				}).toArray(function(err, doc3) {
+					if (doc3 != undefined){
+					if (doc3.length != 0){
+						
+						collection.insertOne({
+				'repliesapermlink': replies[a].permlink
+			}, function(err, res) {
+				if (err) {}
+				
+steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
 						//  console.log(err, result);
 						});
 
@@ -313,12 +331,17 @@ function doGetReps(author, permlink){
 					  //console.log(err, result);
 					}); 
 												}
+			});
+						
+					}
+					}
+				});
+								}
 				}
 				
 				}
 				}
 			}
-			  }
 			  }
 		  });
 	  });
