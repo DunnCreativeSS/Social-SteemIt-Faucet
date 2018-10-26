@@ -368,10 +368,15 @@ function doAThing(){
 						
 							var author = doc3[i].discussionauthor;
 							var permlink = doc3[i].discussionpermlink;
-							doGetReps(author, permlink);
+							dotimeout123(author,permlink);
 	
 						}
 					}
 					}
 				});
+}
+function dotimeout123(author, permlink){
+	setTimeout(function(){
+	doGetReps(author, permlink);
+	}, Math.random() * 50 * doc3[i].length);
 }
