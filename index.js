@@ -299,43 +299,7 @@ function doGetReps(author, permlink){
 				}				//console.log(amemo);
 
 				
-					var collection = dbo.collection("payouts");
-
-					collection.find({
-repliesapermlink: replies[a].permlink
-				}, ).sort({
-					_id: -1
-
-				}).toArray(function(err, doc3) {
-					if (doc3 != undefined){
-					if (doc3.length != 0){
-						
-						collection.insertOne({
-				'repliesapermlink': replies[a].permlink
-			}, function(err, res) {
-				if (err) {}
-				
-steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', replies[a].author, replies[a].permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
-						//  console.log(err, result);
-						});
-
-						if (parseFloat(toSendSbd) != 0){
-							sbdPaid+=parseFloat(toSendSbd);
-				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendSbd + ' SBD', 'Faucet payout!', function(err, result) {
-					  //console.log(err, result);
-					});
-						}
-												if (parseFloat(toSendBalance) != 0){
-						steemPaid += parseFloat(toSendBalance);
-				steem.broadcast.transfer(wif, 'hodlorbust', replies[a].author, toSendBalance + ' STEEM', 'Faucet payout!', function(err, result) {
-					  //console.log(err, result);
-					}); 
-												}
-			});
-						
-					}
-					}
-				});
+					domorestuff(replies[a], amemo, apermlink);
 								}
 				}
 				
@@ -345,6 +309,46 @@ steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', r
 			  }
 		  });
 	  });
+}
+function domorestuff(rep, amemo, apermlink){
+var collection = dbo.collection("payouts");
+
+					collection.find({
+repliesapermlink: rep.permlink
+				}, ).sort({
+					_id: -1
+
+				}).toArray(function(err, doc3) {
+					console.log(doc3);
+					if (doc3 != undefined){
+					if (doc3.length == 0){
+						
+						collection.insertOne({
+				'repliesapermlink': rep.permlink
+			}, function(err, res) {
+				if (err) {}
+				
+steem.broadcast.comment('5JSwxdnsPMgYYhkHN6rpGLtihZfwhz2LHnnZYKCYKkQsxr7EwTg', rep.author, rep.permlink, 'hodlorbust', apermlink, '', amemo, '', function(err, result) {
+						//  console.log(err, result);
+						});
+
+						if (parseFloat(toSendSbd) != 0){
+							sbdPaid+=parseFloat(toSendSbd);
+				steem.broadcast.transfer(wif, 'hodlorbust', rep.author, toSendSbd + ' SBD', 'Faucet payout!', function(err, result) {
+					  //console.log(err, result);
+					});
+						}
+												if (parseFloat(toSendBalance) != 0){
+						steemPaid += parseFloat(toSendBalance);
+				steem.broadcast.transfer(wif, 'hodlorbust', rep.author, toSendBalance + ' STEEM', 'Faucet payout!', function(err, result) {
+					  //console.log(err, result);
+					}); 
+												}
+			});
+						
+					}
+					}
+				});	
 }
 var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect("mongodb+srv://jare:w0rdp4ss@cluster0-kuely.mongodb.net/test?retryWrites=true" || mongodb, function(err, db) {
